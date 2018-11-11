@@ -6,6 +6,7 @@
 
 """
 import glob
+from kipoi_gwas import regulatory_features
 
 config = {
     "output_dir": 'output'
@@ -48,13 +49,18 @@ rule merge_deepbind:
                         rename(columns={"preds/diff/0": f.replace("tsv.gz", "")})
                         for f in input.deepbind_files], axis=1)
 
-        # Merge the two tables
+        # Merge the two tablesdd
         dfo = pd.merge(dfbb, df, left_index=True, right_index=True)
 
         # Write the results to as tsv table
         dfo = dfo.reset_index()
         dfo.to_csv(output.tsv, compression='gzip', sep=' ', index=False)
 
+rule fetch_regulatry_features:    
+    output: 
+        '{fdir}/bar_dgff_regulation_combo_type.png'
+    run:
+        regulatory_features.run(wildcards.ddir)
 
 rule merge:
     input:

@@ -14,8 +14,9 @@ import seaborn as sns
 sns.set('notebook')
 
 # global vars of package
-from kipoi_gwas import ddir
-
+# from kipoi_gwas import ddir
+ddir = "data"
+fdir = "figure"
 
 # release 75
 # dAnnotatedFeatures=pd.read_csv(f'{ddir}/ensembl/raw/ftp.ensembl.org/pub/release-75/regulation/homo_sapiens/AnnotatedFeatures.gff.gz',
@@ -27,7 +28,7 @@ from kipoi_gwas import ddir
 
 # In[5]:
 
-def get_dgwas_subset_flt():
+def get_dgwas_subset_flt(ddir,fdir):
     dgwas_subset_fltp=f'{ddir}/UKBB/processed/dgwas_subset_flt.pqt'
     if not exists(dgwas_subset_fltp):
         dgwas_subset=pd.read_csv(f'{ddir}/UKBB/raw/I10.gwas.imputed_v3.both_sexes.chr12.tsv',sep='\t',)
@@ -48,7 +49,7 @@ def get_dgwas_subset_flt():
     return dgwas_subset_flt
 
 
-def get_dgff_regulation_combo():
+def get_dgff_regulation_combo(ddir,fdir):
     dgff_regulation_combop=f'{ddir}/ensembl/processed/dgff_regulation_combo.pqt'
     if not exists(dgff_regulation_combop):
         i=0
@@ -90,7 +91,8 @@ def get_dgff_regulation_combo():
 
     return dgff_regulation_combo
 
-def get_dgff_regulation_combo_subset(dgff_regulation_combo_subset,chromosome='12',tissue_type='Aorta'):
+def get_dgff_regulation_combo_subset(ddir,dgff_regulation_combo_subset,chromosome='12',tissue_type='Aorta',
+                                    fdir):
     dgff_regulation_combo_subsetp=f'{ddir}/ensembl/processed/dgff_regulation_combo.chr{chromosome}.{tissue_type}.pqt'
     if not exists(dgff_regulation_combo_subsetp):
         dgff_regulation_combo_subset=dgff_regulation_combo.loc[((dgff_regulation_combo["tissue type"]==tissue_type) & (dgff_regulation_combo["chromosome"]==chromosome)),:]
@@ -99,10 +101,10 @@ def get_dgff_regulation_combo_subset(dgff_regulation_combo_subset,chromosome='12
         dgff_regulation_combo_subset=pd.read_parquet(dgff_regulation_combo_subsetp,engine='fastparquet')
     return dgff_regulation_combo_subset
    
-def run():
-    dgwas_subset_flt=get_dgwas_subset_flt()    
-    dgff_regulation_combo=get_dgff_regulation_combo()    
-    dgff_regulation_combo_subset=get_dgff_regulation_combo_subset(dgff_regulation_combo)
+def run(ddir):
+    dgwas_subset_flt=get_dgwas_subset_flt(ddir)    
+    dgff_regulation_combo=get_dgff_regulation_combo(ddir)    
+    dgff_regulation_combo_subset=get_dgff_regulation_combo_subset(ddir,dgff_regulation_combo)
 
 # trying to collapse the tissue wise regulation features
 # cols_dgff_regulation_combo=dgff_regulation_combo.columns.tolist()
