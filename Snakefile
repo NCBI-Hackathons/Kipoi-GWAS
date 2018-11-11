@@ -18,7 +18,7 @@ rule merge:
     output:
         os.path.join(config['output_dir'], "merged.tsv")
     shell:
-        # TODO
+        # TODO(Ziga) - use dask to join the tables
         pass
 
 
