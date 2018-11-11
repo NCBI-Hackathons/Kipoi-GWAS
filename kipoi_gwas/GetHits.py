@@ -13,8 +13,8 @@ from collections import OrderedDict
 
 ddir = "data"
 
-dgwas=pd.read_csv('/data/analysis/UKBB/raw/I10.gwas.imputed_v3.both_sexes.tsv',sep='\t')
-phenotype=pd.read_csv('/data/analysis/UKBB/raw/phenotypes.both_sexes.tsv.gz',sep='\t')
+dgwas=pd.read_csv(f'{ddir}/UKBB/raw/I10.gwas.imputed_v3.both_sexes.tsv',sep='\t')
+phenotype=pd.read_csv(f'{ddir}/UKBB/raw/phenotypes.both_sexes.tsv.gz',sep='\t')
 
 
 # In[202]:
