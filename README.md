@@ -1,5 +1,5 @@
 # Kipoi-GWAS
-![](pngs/label.png)
+![](figures/label.png)
 
 # General workflow of Kipoi-GWAS
-![](pngs/workflow.png)
+![](figures/workflow.png)
