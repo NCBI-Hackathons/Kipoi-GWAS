@@ -1,0 +1,2 @@
+ddir = "data"
+odir = "data"
