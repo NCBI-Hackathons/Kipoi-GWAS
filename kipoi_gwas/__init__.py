@@ -1,2 +1,2 @@
 ddir = "data"
-odir = "data"
+fdir = "figures"

@@ -28,10 +28,10 @@ from kipoi_gwas import ddir
 # In[5]:
 
 def get_dgwas_subset_flt():
-    dgwas_subset_fltp=f'{ddir}/analysis/UKBB/processed/dgwas_subset_flt.pqt'
+    dgwas_subset_fltp=f'{ddir}/UKBB/processed/dgwas_subset_flt.pqt'
     if not exists(dgwas_subset_fltp):
-        dgwas_subset=pd.read_csv(f'{ddir}/analysis/UKBB/raw/I10.gwas.imputed_v3.both_sexes.chr12.tsv',sep='\t',)
-        # dgwas=pd.read_csv('/data/analysis/UKBB/raw/variants.tsv',sep='\t')
+        dgwas_subset=pd.read_csv(f'{ddir}/UKBB/raw/I10.gwas.imputed_v3.both_sexes.chr12.tsv',sep='\t',)
+        # dgwas=pd.read_csv('/data/UKBB/raw/variants.tsv',sep='\t')
 
         print(dgwas_subset.shape)
         dgwas_subset_flt=dgwas_subset.loc[~dgwas_subset['low_confidence_variant'],:]
@@ -39,8 +39,8 @@ def get_dgwas_subset_flt():
         plt.figure(figsize=[3,3])
         ax=plt.subplot(111)
         ax=dgwas_subset_flt['pval'].apply(np.log10).hist()
-        plt.savefig('hist_pval.png')
-    #     dgwas_subset_flt.to_csv(f'{ddir}/analysis/UKBB/processed/dgwas_subset_flt.tsv',sep='\t',)
+        plt.savefig(f'{fdir}/hist_pval.png')
+    #     dgwas_subset_flt.to_csv(f'{ddir}/UKBB/processed/dgwas_subset_flt.tsv',sep='\t',)
         dgwas_subset_flt.to_parquet(dgwas_subset_fltp,compression='gzip',
                                    engine='fastparquet')
     else:
@@ -49,7 +49,7 @@ def get_dgwas_subset_flt():
 
 
 def get_dgff_regulation_combo():
-    dgff_regulation_combop='{ddir}/analysis/ensembl/processed/dgff_regulation_combo.pqt'
+    dgff_regulation_combop=f'{ddir}/ensembl/processed/dgff_regulation_combo.pqt'
     if not exists(dgff_regulation_combop):
         i=0
         for gffp in glob.iglob(f'{ddir}/ensembl/raw/ftp.ensembl.org/pub/grch37/update/regulation/homo_sapiens/RegulatoryFeatureActivity/*/homo_sapiens*.gff.gz'):
@@ -67,7 +67,7 @@ def get_dgff_regulation_combo():
         ax=dgff_regulation_combo['type'].value_counts().plot.barh()
         plt.tight_layout()
     #     plt.savefig('plot/bar_dgff_regulation_combo_type.svg')
-        plt.savefig('bar_dgff_regulation_combo_type.png')
+        plt.savefig(f'{fdir}/bar_dgff_regulation_combo_type.png')
 
         dgff_regulation_combo['regulatory_feature_stable_id']=dgff_regulation_combo['attributes'].apply(lambda x : [s.replace('regulatory_feature_stable_id=','') for s in x.split(';') if 'regulatory_feature_stable_id=' in s][0])
 
@@ -91,7 +91,7 @@ def get_dgff_regulation_combo():
     return dgff_regulation_combo
 
 def get_dgff_regulation_combo_subset(dgff_regulation_combo_subset,chromosome='12',tissue_type='Aorta'):
-    dgff_regulation_combo_subsetp='{ddir}/analysis/ensembl/processed/dgff_regulation_combo.chr{chromosome}.{tissue_type}.pqt'
+    dgff_regulation_combo_subsetp=f'{ddir}/ensembl/processed/dgff_regulation_combo.chr{chromosome}.{tissue_type}.pqt'
     if not exists(dgff_regulation_combo_subsetp):
         dgff_regulation_combo_subset=dgff_regulation_combo.loc[((dgff_regulation_combo["tissue type"]==tissue_type) & (dgff_regulation_combo["chromosome"]==chromosome)),:]
         dgff_regulation_combo_subset.to_parquet(dgff_regulation_combo_subsetp,engine='fastparquet',compression='gzip')
@@ -99,10 +99,10 @@ def get_dgff_regulation_combo_subset(dgff_regulation_combo_subset,chromosome='12
         dgff_regulation_combo_subset=pd.read_parquet(dgff_regulation_combo_subsetp,engine='fastparquet')
     return dgff_regulation_combo_subset
    
-
-dgwas_subset_flt=get_dgwas_subset_flt()    
-dgff_regulation_combo=get_dgff_regulation_combo()    
-dgff_regulation_combo_subset=get_dgff_regulation_combo_subset(dgff_regulation_combo)
+def run():
+    dgwas_subset_flt=get_dgwas_subset_flt()    
+    dgff_regulation_combo=get_dgff_regulation_combo()    
+    dgff_regulation_combo_subset=get_dgff_regulation_combo_subset(dgff_regulation_combo)
 
 # trying to collapse the tissue wise regulation features
 # cols_dgff_regulation_combo=dgff_regulation_combo.columns.tolist()
