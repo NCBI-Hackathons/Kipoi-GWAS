@@ -24,9 +24,9 @@ cd Kipoi-GWAS; pip install .
 ```
 
 
-## Folder structure
+## Folder structure 
 
-Here is the complete folder structure.
+In order to keep track of all the input and output files, it is efficient to maintain a good folder structure. Here is the proposed and complete folder structure.
 
 ```
 input/
