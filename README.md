@@ -48,8 +48,9 @@ output/
 	  {chr}/
 	    {run-id}/
 		  metadata.json  # information about the run
-		  input/   # input tables for fgwas
-		  output/  # output of fgwas
+		  fgwas/
+		    input/   # input tables for fgwas
+		    output/  # output of fgwas
 		  report/  # reports
   		    fig1.ipynb
 		     fig1.html
