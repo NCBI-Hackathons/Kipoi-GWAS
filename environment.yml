@@ -1,0 +1,19 @@
+name: kipoi_gwas
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.6.5
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - seaborn
+  - yaml
+  - pip:
+    - snakemake
+    - arrow
+    - fastparquet
+    - kipoi
+    - pytest-runner
