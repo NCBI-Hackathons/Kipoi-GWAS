@@ -6,51 +6,34 @@
 
 """
 import glob
-from kipoi_gwas import regulatory_features
 
-config = {
-    "output_dir": 'output'
-}
-
+# config = {
+#     "output_dir": 'output'
+# }
+# --------------------------------------------
+# All the runs
+run_ids = ['DeepSEA', 'DeepBind']
+chrs = ['chr12']
+phenotypes = ['I10']
+imputed_version = ['imputed_v3']
+gender = ['both_sexes']
 #-----------pipeline----------------
 rule all:
     input:
-        expand("output/{phenotype}/subset/{chr}/{run_id}/fgwas/input/fgwas.llk",
-               chr=['chr12'],
-               run_id=['DeepSEA', 'DeepBind'],
-               phenotype=['I10']
-               # TODO,change this if you want to run for more
-
-rule step01_get_phenotype_from_ukbb:
-    input:
-    output:
-    shell:
-
-rule step02_download:
-    input:
-    output:
-    shell:
-
-rule step03_merge:
-    input:
-    output:
-    shell:
-
-rule step04_fgwas:
-    input:
-    output:
-    shell:
-
-
-               #---------------------------------
-
-
-rule fetch_regulatry_features:
-    output:
-        '{fdir}/bar_dgff_regulation_combo_type.png'
-    run:
-        regulatory_features.run(wildcards.ddir)
-
+        expand("output/{phenotype}.gwas.{imputed_version}.{gender}"
+               "/subset/{chr}/{run_id}/fgwas/input/fgwas.llk",
+               chr=chrs,
+               imputed_version=imputed_version,
+               gender=genders,
+               run_id=run_ids,
+               phenotype=phenotypes),
+        expand("output/{phenotype}.gwas.{imputed_version}.{gender}"
+               "/subset/{chr}/{run_id}/fgwas/report/fgwas.html",
+               chr=chrs,
+               run_id=run_ids,
+               imputed_version=imputed_version,
+               gender=gender,
+               phenotype=phenotypes)
 
 # --------------------------------------------
 
@@ -62,3 +45,5 @@ include:
     "rules/fgwas.smk"
 include:
     "rules/ukbb.smk"
+include:
+    "rules/ensembl.smk"

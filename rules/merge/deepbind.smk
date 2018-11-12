@@ -25,10 +25,10 @@ rule merge_deepbind:
     """Load all the DeepBind files and merge them with the UKBB table
     """
     input:
-        ukbb = "input/UKBB/{phenotype}.gwas.imputed_v3.both_sexes.tsv"
+        ukbb = "input/UKBB/{phenotype}.gwas.{imputed_version}.{gender}.tsv"
         deepbind_files = glob.glob("input/anno/kipoi/subset/{chr}/DeepBind/*.tsv.gz")
     output:
-        tsv = "output/{phenotype}/subset/{chr}/DeepBind/fgwas/input/annotated-variants.tsv.gz"
+        tsv = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/DeepBind/fgwas/input/annotated-variants.tsv.gz"
     run:
         # UK BB table
         dfbb = pd.read_table(input.ukbb, sep=' ')
