@@ -1,4 +1,5 @@
 # TODO - get the deepbind wildcard
+import glob
 
 
 def read_tsv(fname, col_selector):
@@ -25,7 +26,7 @@ rule merge_deepbind:
     """Load all the DeepBind files and merge them with the UKBB table
     """
     input:
-        ukbb = "input/UKBB/{phenotype}.gwas.{imputed_version}.{gender}.tsv"
+        ukbb = "input/UKBB/{phenotype}.gwas.{imputed_version}.{gender}.tsv",
         deepbind_files = glob.glob("input/anno/kipoi/subset/{chr}/DeepBind/*.tsv.gz")
     output:
         tsv = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/DeepBind/fgwas/input/annotated-variants.tsv.gz"
@@ -34,8 +35,7 @@ rule merge_deepbind:
         dfbb = pd.read_table(input.ukbb, sep=' ')
 
         # Load all the Kipoi tables
-        df = pd.concat([read_tsv(f, '.*diff.*').
-                        rename(columns={"preds/diff/0": f.replace("tsv.gz", "")})
+        df = pd.concat([read_tsv(f, '.*diff.*').rename(columns={"preds/diff/0": f.replace("tsv.gz", "")})
                         for f in input.deepbind_files], axis=1)
 
         # Merge the two tablesdd

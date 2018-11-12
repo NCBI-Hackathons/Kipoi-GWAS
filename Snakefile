@@ -10,7 +10,7 @@ run_ids = ['DeepSEA', 'DeepBind']
 chrs = ['chr12']
 phenotypes = ['I10']
 imputed_version = ['imputed_v3']
-gender = ['both_sexes']
+genders = ['both_sexes']
 #-----------pipeline----------------
 rule all:
     input:
@@ -26,8 +26,15 @@ rule all:
                chr=chrs,
                run_id=run_ids,
                imputed_version=imputed_version,
-               gender=gender,
+               gender=genders,
                phenotype=phenotypes)
+
+# additional target rules
+rule download_ukbb_data:
+    input:
+        "input/UKBB/1697.gwas.imputed_v3.both_sexes.tsv"
+
+
 
 # --------------------------------------------
 

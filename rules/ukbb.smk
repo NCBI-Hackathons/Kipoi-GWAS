@@ -1,9 +1,11 @@
 """UK - biobank snakemake
 """
 import pandas as pd
+
+
 def get_url(fname):
     df = pd.read_table("metadata/UKBB-GWAS-Imputed-v3201807.tsv.gz")
-    return df[df.File == fname]['Dropbox File'].iloc[0]
+    return df[df.File.str.contains(fname)]['Dropbox File'].iloc[0]
 
 
 rule download_ukbb:
