@@ -1,15 +1,9 @@
 """Full workflow for running
-
-[kipoi.models.*.tsv] [annotation.*.tsv] [gwas.tsv]
-      \                   |               |
-       [merged tsv]
-
 """
-import glob
-
 # config = {
 #     "output_dir": 'output'
 # }
+
 # --------------------------------------------
 # All the runs
 run_ids = ['DeepSEA', 'DeepBind']
