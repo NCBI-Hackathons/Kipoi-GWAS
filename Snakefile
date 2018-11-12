@@ -13,6 +13,14 @@ config = {
 }
 
 #-----------pipeline----------------
+rule all:
+    input:
+        expand("output/{phenotype}/subset/{chr}/{run_id}/fgwas/input/fgwas.llk",
+               chr=['chr12'],
+               run_id=['DeepSEA', 'DeepBind'],
+               phenotype=['I10']
+               # TODO,change this if you want to run for more
+
 rule step01_get_phenotype_from_ukbb:
     input:
     output:
@@ -33,7 +41,8 @@ rule step04_fgwas:
     output:
     shell:
 
-        #---------------------------------
+
+               #---------------------------------
 
 
 rule fetch_regulatry_features:
