@@ -30,9 +30,9 @@ Here is the complete folder structure.
 
 ```
 input/
-  UKBB/  # UK-biobank phenotypes downloaded from TODO
+  UKBB/  # UK-biobank phenotypes downloaded from the UK Biobank site. Select phenotypes of interest. TODO
     {phenotype}.gwas.imputed_v3.both_sexes.tsv.bgz
-	{phenotype}.gwas.imputed_v3.both_sexes.tsv   # untared
+	{phenotype}.gwas.imputed_v3.both_sexes.tsv   # after untarring the .bgz file
   anno/  # variant annotation of the phenotypes found in UKBB
     kipoi/  # annotated variants using `kipoi veff score_variants`
 	  subset/
@@ -50,7 +50,7 @@ output/
 		  metadata.json  # information about the run
 		  fgwas/
 		    input/   # input tables for fgwas
-		    output/  # output of fgwas
+		    output/  # output of fgwas, includes default outputs
 		  report/  # reports
   		    fig1.ipynb
 		     fig1.html
