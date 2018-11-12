@@ -56,7 +56,9 @@ def prepare(code,pheno,study,phenotypep,
 
 
     #use the top 100 associations for fine mapping
-    dgwas_min = dgwas_sub_snp_chr.nsmallest(100, 'pval')
+    dgwas_min = dgwas_sub_snp_chr.loc[dgwas_sub_snp_chr['pval']<5e-8,:]
+    if len(dgwas_min)<100:
+        dgwas_min = dgwas_sub_snp_chr.nsmallest(100, 'pval')
     dgwas_min = dgwas_min.sort_values(['chr', 'pos'], ascending=[True, True])
 
 
