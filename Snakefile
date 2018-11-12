@@ -43,6 +43,9 @@ rule run_prepare_merge_table:
     input:
         "output/1697.gwas.imputed_v3.both_sexes/gwas-table-unannotated.tsv.gz"
 
+rule run_compile_html:
+    input:
+        "output/I10.gwas.imputed_v3.both_sexes/subset/chr12/DeepBind/fgwas/report/fgwas.html"
 
 # --------------------------------------------
 
