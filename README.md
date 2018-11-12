@@ -22,3 +22,35 @@ conda env create -f environment.yml
 ```
 cd Kipoi-GWAS; pip install .
 ```
+
+
+## Folder structure
+
+Here is the complete folder structure.
+
+```
+input/
+  UKBB/  # UK-biobank phenotypes downloaded from TODO
+    {phenotype}.gwas.imputed_v3.both_sexes.tsv.bgz
+	{phenotype}.gwas.imputed_v3.both_sexes.tsv   # untared
+  anno/  # variant annotation of the phenotypes found in UKBB
+    kipoi/  # annotated variants using `kipoi veff score_variants`
+	  subset/
+  	    {chr}/
+		  {model}.tsv.gz
+
+	ensembl/
+	  # TODO -
+
+output/
+  {phenotype}/
+    subset/
+	  {chr}/
+	    {run-id}/
+		  metadata.json  # information about the run
+		  input/   # input tables for fgwas
+		  output/  # output of fgwas
+		  report/  # reports
+  		    fig1.ipynb
+		     fig1.html
+```
