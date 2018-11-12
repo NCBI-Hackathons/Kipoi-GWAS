@@ -1,6 +1,14 @@
 ![](figure/label.png)
 # `Kipoi-GWAS`
 
+Kipoi-GWAS is a snakemake pipeline which 
+- downloads UK BioBank association files
+- merges the annotation files with variant effect predictions using Kipoi 
+- runs FGWAS to fine-map variants
+- generates a report 
+
+A sample report can be found here: [src/fgwas_plot.ipynb](src/fgwas_plot.ipynb).
+
 ## General workflow of Kipoi-GWAS
 ![](figure/workflow.png)
 
@@ -26,7 +34,7 @@ cd Kipoi-GWAS; pip install .
 
 ## Folder structure 
 
-In order to keep track of all the input and output files, it is efficient to maintain a good folder structure. Here is the proposed and complete folder structure.
+Here is the complete folder structure.
 
 ```
 input/
@@ -39,8 +47,7 @@ input/
   	    {chr}/
 		  {model}.tsv.gz
 
-	ensembl/
-	  # TODO -
+	
 
 output/
   {phenotype}/
