@@ -12,6 +12,7 @@ dependencies:
   - seaborn
   - yaml
   - pip:
+    - snakemake
     - arrow
     - fastparquet
     - kipoi
