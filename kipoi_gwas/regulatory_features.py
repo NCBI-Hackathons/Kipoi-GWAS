@@ -91,8 +91,8 @@ def get_dgff_regulation_combo(ddir,fdir):
 
     return dgff_regulation_combo
 
-def get_dgff_regulation_combo_subset(ddir,dgff_regulation_combo_subset,chromosome='12',tissue_type='Aorta',
-                                    fdir):
+def get_dgff_regulation_combo_subset(ddir,fdir,dgff_regulation_combo_subset,chromosome='12',tissue_type='Aorta',
+                                    ):
     dgff_regulation_combo_subsetp=f'{ddir}/ensembl/processed/dgff_regulation_combo.chr{chromosome}.{tissue_type}.pqt'
     if not exists(dgff_regulation_combo_subsetp):
         dgff_regulation_combo_subset=dgff_regulation_combo.loc[((dgff_regulation_combo["tissue type"]==tissue_type) & (dgff_regulation_combo["chromosome"]==chromosome)),:]
