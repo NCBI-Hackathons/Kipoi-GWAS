@@ -10,6 +10,7 @@ import glob
 # config = {
 #     "output_dir": 'output'
 # }
+
 # --------------------------------------------
 # All the runs
 run_ids = ['DeepSEA', 'DeepBind']
