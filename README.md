@@ -36,6 +36,8 @@ cd Kipoi-GWAS; pip install .
 
 Here is the complete folder structure.
 
+
+
 ```
 input/
   UKBB/  # UK-biobank phenotypes downloaded from the UK Biobank site. Select phenotypes of interest. TODO
@@ -62,3 +64,9 @@ output/
   		    fig1.ipynb
 		     fig1.html
 ```
+### Placeholders
+
+- `{phenotype}` - the UKBB phenotype code goes here
+- `{chr}` - results are generated for associations in a particular chromosome. Example: chr12
+- `{run-id}`- this is a manually selected placeholder which allows for the pipeline to be run for different combinations of variant annotations
+
