@@ -1,8 +1,11 @@
 """Full workflow for running
 """
-# config = {
-#     "output_dir": 'output'
-# }
+config = {
+    "study_hash": {
+        '1697': 'quant',
+        'I10': 'cc'
+    }
+}
 
 # --------------------------------------------
 # All the runs
@@ -11,6 +14,8 @@ chrs = ['chr12']
 phenotypes = ['I10']
 imputed_version = ['imputed_v3']
 genders = ['both_sexes']
+
+
 #-----------pipeline----------------
 rule all:
     input:
@@ -34,6 +39,9 @@ rule download_ukbb_data:
     input:
         "input/UKBB/1697.gwas.imputed_v3.both_sexes.tsv"
 
+rule run_prepare_merge_table:
+    input:
+        "output/1697.gwas.imputed_v3.both_sexes/gwas-table-unannotated.tsv.gz"
 
 
 # --------------------------------------------

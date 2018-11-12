@@ -142,15 +142,3 @@ def prepare(code,pheno,study,phenotypep,
                sep=' ',header=True, index=False, compression="gzip")
 
     return res
-
-
-#only support for both sexes for now
-code = 'I10'
-pheno = f'/data/analysis/UKBB/raw/{code}.gwas.imputed_v3.both_sexes.tsv'
-study = 'cc'
-sex='both_sexes'
-phenotypep=f'/data/analysis/UKBB/raw/phenotypes.{sex}.tsv.gz'
-resp=f'/data/analysis/UKBB/processed/{code}.gwas.imputed_v3.both_sexes.finemapping.tsv.gz'
-print(pheno)
-prepare(code,pheno,study,phenotypep,
-            resp)
