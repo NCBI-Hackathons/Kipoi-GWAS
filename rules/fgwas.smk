@@ -5,13 +5,13 @@ rule fgwas_run:
     input:
         tsv = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/input/annotated-variants.tsv.gz"
     output:
-        params="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/input/fgwas.params",
-        bfs="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/input/fgwas.bfs.gz",
+        params="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/output/fgwas.params",
+        bfs="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/output/fgwas.bfs.gz"
     params:
         study_type = lambda wildcards: config['study_hash'][wildcards.phenotype],
-        prefix="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/input/fgwas",
+        prefix="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/output/fgwas"
     shell:
-        "my_command -i {input.tsv} -type {params.study_typen} -o {params.prefix}"
+        "my_command -i {input.tsv} -type {params.study_type} -o {params.prefix}"
         # TODO - fill in
 
 
@@ -49,15 +49,15 @@ rule fgwas_report:
     """Compile the fgwas report
     """
     input:
-        fgwas="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/input/fgwas.bfs.gz",
-        tsv = "output/{phenotype}.gwas.{imputed_version}.{gender}/gwas-table-unannotated.tsv.gz"
+        fgwas="output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/output/fgwas.bfs.gz",
+        tsv = "output/{phenotype}.gwas.{imputed_version}.{gender}/gwas-table-unannotated.tsv.gz",
         ipynb = "src/fgwas_plot.ipynb"
     output:
         ipynb = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/report/fgwas.ipynb",
-        html = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/report/fgwas.html",
+        html = "output/{phenotype}.gwas.{imputed_version}.{gender}/subset/{chr}/{run_id}/fgwas/report/fgwas.html"
     run:
         render_ipynb(input.ipynb, output.ipynb,
-                     params=dict(fgwas_output=inpu.fgwas,
+                     params=dict(fgwas_output=input.fgwas,
                                  gwas=input.tsv,
-                                 chrs=wildcards.chr))
+                                 chr=wildcards.chr))
         jupyter_nbconvert(output.ipynb)

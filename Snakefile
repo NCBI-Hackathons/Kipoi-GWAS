@@ -49,10 +49,10 @@ rule run_compile_html:
 
 # --------------------------------------------
 
-include:
-    "rules/merge/deepsea.smk"
-include:
-    "rules/merge/deepbind.smk"
+# include:
+#     "rules/merge/deepsea.smk"
+# include:
+#     "rules/merge/deepbind.smk"
 include:
     "rules/fgwas.smk"
 include:
